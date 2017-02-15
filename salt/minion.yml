@@ -1,0 +1,20 @@
+master: localhost
+
+file_client: local
+
+state_verbose: True
+
+gitfs_provider: gitpython
+
+fileserver_backend:
+  - roots
+  - git
+
+gitfs_remotes:
+  - https://github.com/saltstack-formulas/node-formula.git
+  - https://github.com/saltstack-formulas/mongodb-formula.git
+  - https://github.com/saltstack-formulas/mysql-formula.git
+
+pillar_roots:
+  base:
+    - /srv/pillar
