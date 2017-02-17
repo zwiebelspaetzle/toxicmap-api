@@ -1,0 +1,7 @@
+.DS_Store
+.vagrant
+node_modules/
+npm-debug.log
+
+salt/pillar/mysql.sls
+salt/roots/database.config
