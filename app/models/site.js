@@ -22,4 +22,4 @@ var SiteSchema = new Schema({
   nonNplStatus   : String
 });
 
-module.exports = mongoose.model('active-sites', SiteSchema);
+module.exports = mongoose.model('tm-sf-sites', SiteSchema);
