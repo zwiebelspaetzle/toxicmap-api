@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var SiteSchema = new Schema({
-  _id            : Schema.Types.ObjectId,
+  _id            : Number,
   region         : String,
   siteId         : String,
   epaId          : String,
@@ -15,8 +15,10 @@ var SiteSchema = new Schema({
   congDistrict   : String,
   county         : String,
   fips           : String,
-  lat            : String,
-  lon            : String,
+  lat            : Number,
+  lon            : Number,
+  gc_lat         : Number,
+  gc_lon         : Number,
   npl            : String,
   ff             : String,
   nonNplStatus   : String
