@@ -58,6 +58,29 @@ router.route('/sites/:site_id')
     });
   });
 
+router.route('/sites/near/:latlong')
+  .get((req, res) => {
+    let coords = req.params.latlong.split(',');
+    let [lat, long] = coords;
+    let point = {'type': 'Point', 'coordinates': [long, lat]};
+    let maxDist = req.query.maxDist * 100 || 100000;  // default 100 km
+    let query = {
+      loc: {
+        $near: {
+          $geometry : point,
+          $maxDistance : maxDist
+        }
+      }
+    };
+
+    Site.find(query, {}, (err, results, stats) => {
+      if (err)
+        res.send(err);
+
+      res.json(results);
+    });
+  });
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
