@@ -58,6 +58,8 @@ router.route('/sites/:site_id')
     });
   });
 
+// query by proximity to point
+// TODO: make this use nearSphere
 router.route('/sites/near/:latlong')
   .get((req, res) => {
     let coords = req.params.latlong.split(',');
@@ -76,6 +78,37 @@ router.route('/sites/near/:latlong')
     Site.find(query, {}, (err, results, stats) => {
       if (err)
         res.send(err);
+
+      res.json(results);
+    });
+  });
+
+// query by location within box
+router.route('/sites/within/:box')
+  .get((req, res) => {
+    let coords = req.params.box.split(',');
+    for (let i in coords) {
+      coords[i] = parseFloat(coords[i]);
+    }
+    let [blLat, blLong, urLat, urLong] = coords;
+    let query = {
+      loc: {
+        $geoWithin: {
+          $box: [
+            [
+              blLong, blLat
+            ],[
+              urLong, urLat
+            ]
+          ]
+        }
+      }
+    };
+
+    Site.find(query, {}, (err, results, stats) => {
+      if (err) {
+        res.send(err);
+      }
 
       res.json(results);
     });
