@@ -58,6 +58,62 @@ router.route('/sites/:site_id')
     });
   });
 
+// query by proximity to point
+// TODO: make this use nearSphere
+router.route('/sites/near/:latlong')
+  .get((req, res) => {
+    let coords = req.params.latlong.split(',');
+    let [lat, long] = coords;
+    let point = {'type': 'Point', 'coordinates': [long, lat]};
+    let maxDist = req.query.maxDist * 100 || 100000;  // default 100 km
+    let query = {
+      loc: {
+        $near: {
+          $geometry : point,
+          $maxDistance : maxDist
+        }
+      }
+    };
+
+    Site.find(query, {}, (err, results, stats) => {
+      if (err)
+        res.send(err);
+
+      res.json(results);
+    });
+  });
+
+// query by location within box
+router.route('/sites/within/:box')
+  .get((req, res) => {
+    let coords = req.params.box.split(',');
+    for (let i in coords) {
+      coords[i] = parseFloat(coords[i]);
+    }
+    let [blLat, blLong, urLat, urLong] = coords;
+    let query = {
+      loc: {
+        $geoWithin: {
+          $box: [
+            [
+              blLong, blLat
+            ],[
+              urLong, urLat
+            ]
+          ]
+        }
+      }
+    };
+
+    Site.find(query, {}, (err, results, stats) => {
+      if (err) {
+        res.send(err);
+      }
+
+      res.json(results);
+    });
+  });
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
