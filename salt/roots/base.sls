@@ -16,7 +16,7 @@ curl:
 include:
   - node
   - mongodb
-  - mysql
+  # - mysql 
 
 npm:
   pkg.installed
@@ -24,5 +24,6 @@ npm:
 bash-profile:
   file.managed:
     - name: /home/vagrant/.bash_profile
+    # - name: /home/tmadmin/.bash_profile  this instead on live
     - contents:
       - alias ll='ls -alh'
