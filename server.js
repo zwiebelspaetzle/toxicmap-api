@@ -14,6 +14,7 @@ var port = process.env.PORT || 8080;        // set our port
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://192.168.77.77:27017/npl-sites'); // connect to our database
+// mongoose.connect('mongodb://localhost:27017/npl-sites'); // live
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

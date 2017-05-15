@@ -15,6 +15,13 @@ gitfs_remotes:
   - https://github.com/saltstack-formulas/mongodb-formula.git
   - https://github.com/saltstack-formulas/mysql-formula.git
 
+# needed on live
+# file_roots:
+#   base:
+#     - /srv/salt/
+#     - /srv/salt/roots/
+
 pillar_roots:
   base:
     - /srv/pillar
+    # - /srv/salt/pillar  replace with this on live
