@@ -1,4 +1,4 @@
-# be sure to make a symlink to here from /etc/systemd/system/apiServer.service
+# be sure to copy this file to /etc/systemd/system/apiServer.service
 
 [Unit]
 Description=Toxic Map API Server
