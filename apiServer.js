@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // credit to https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
 
 /*============ Setup ============*/

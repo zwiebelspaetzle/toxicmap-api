@@ -1,0 +1,17 @@
+# be sure to copy this file to /etc/systemd/system/apiServer.service
+
+[Unit]
+Description=Toxic Map API Server
+After=network.target
+
+[Service]
+ExecStart=/var/www/toxicmap-api/apiServer.js
+Restart=always
+User=tm-api-user
+Group=tm-api-user
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/var/www/toxicmap-api/
+
+[Install]
+WantedBy=multi-user.target
